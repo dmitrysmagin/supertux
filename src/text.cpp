@@ -406,7 +406,9 @@ void display_text_file(const std::string& file, Surface* surface, float scroll_s
 #else
     SDL_Delay(2);
 #ifndef NOSOUND
+#ifdef USEMIKMOD
     updateSound();
+#endif
 #endif
 #endif
 

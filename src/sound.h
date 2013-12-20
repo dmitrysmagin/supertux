@@ -75,7 +75,7 @@ extern const char* soundfilenames[NUM_SOUNDS];
 #include <SDL_mixer.h>
 
 /* variables for stocking the sound and music */
-#ifndef GP2X
+#ifndef USEMIKMOD
 extern Mix_Chunk* sounds[NUM_SOUNDS];
 #endif
 
@@ -83,7 +83,7 @@ extern Mix_Chunk* sounds[NUM_SOUNDS];
 int open_audio(int frequency, Uint16 format, int channels, int chunksize);
 void close_audio( void );
 
-#ifndef GP2X
+#ifndef USEMIKMOD
 Mix_Chunk * load_sound(const std::string& file);
 #endif
 void free_chunk(Mix_Chunk*chunk);
@@ -92,7 +92,7 @@ void sound_volume ( int vol );
 
 #endif /*SUPERTUX_SOUND_H*/
 
-#ifdef GP2X
+#ifdef USEMIKMOD
 void play_chunk(int idx);
 static void load_sounds();
 void updateSound ( void );

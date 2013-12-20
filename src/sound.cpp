@@ -22,7 +22,7 @@
 #include "globals.h"
 #include "sound.h"
 #include "setup.h"
-#ifdef GP2X
+#ifdef USEMIKMOD
 #include <string.h>
 #endif
 
@@ -57,7 +57,7 @@ const char * soundfilenames[NUM_SOUNDS] = {
 
 #include <SDL_mixer.h>
 
-#ifndef GP2X
+#ifndef USEMIKMOD
 Mix_Chunk * sounds[NUM_SOUNDS];
 #else
 
@@ -72,7 +72,7 @@ static int chunkFlag[NUM_SOUNDS];
 int open_audio (int frequency, Uint16 format, int channels, int chunksize)
 {
 //  close_audio();
-#ifndef GP2X
+#ifndef USEMIKMOD
   if (Mix_OpenAudio( frequency, format, channels, chunksize ) < 0)
     return -1;
 
@@ -138,7 +138,7 @@ int open_audio (int frequency, Uint16 format, int channels, int chunksize)
 
 void close_audio( void )
 {
-#ifndef GP2X
+#ifndef USEMIKMOD
   if (audio_device) {
     Mix_UnregisterAllEffects( SOUND_LEFT_SPEAKER );
     Mix_UnregisterAllEffects( SOUND_RIGHT_SPEAKER );
@@ -167,7 +167,7 @@ void close_audio( void )
   MikMod_Exit();
 #endif
 }
-#ifdef GP2X
+#ifdef USEMIKMOD
 void updateSound ( void ) {
   if (! audio_device) return;
   MikMod_Update();
@@ -189,7 +189,7 @@ Mix_Chunk* load_sound(const std::string& file)
 
   return(snd);
 }
-#ifdef GP2X
+#ifdef USEMIKMOD
 static void load_sounds() {
   int i;
   std::string name;
@@ -238,7 +238,7 @@ void play_sound(Mix_Chunk * snd, enum Sound_Speaker whichSpeaker)
   }
 }
 
-#ifdef GP2X
+#ifdef USEMIKMOD
 void play_chunk(int idx) 
 {
     int cid;
@@ -257,7 +257,7 @@ void free_chunk(Mix_Chunk *chunk)
 
 void sound_volume ( int vol )
 {
-#ifndef GP2X
+#ifndef USEMIKMOD
     static int volume = 10;
     
     if ( vol == 1 ) volume-=5;
@@ -265,7 +265,7 @@ void sound_volume ( int vol )
     Mix_Volume(-1,volume);
 #endif
 }
-#ifdef GP2X
+#ifdef USEMIKMOD
 void increaseSoundVolume(void)
 {
 	if (md_volume > (256 - 13)) md_volume =  256;

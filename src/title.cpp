@@ -330,7 +330,7 @@ void title(void)
                              0, 360, 0);
 #endif
 #ifndef NOSOUND
-#ifdef GP2X
+#ifdef USEMIKMOD
 	updateSound();
 #endif
 #endif

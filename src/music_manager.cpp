@@ -59,7 +59,7 @@ MusicManager::exists_music(const std::string& file)
     return true;                                      
   }
   
-#ifndef GP2X
+#ifndef USEMIKMOD
   Mix_Music* song = Mix_LoadMUS(file.c_str());
 #else
   char mfile[100];
@@ -106,7 +106,7 @@ MusicManager::play_music(const MusicRef& musicref, int loops)
   current_music->refcount++;
   
   if(music_enabled)
-#ifndef GP2X
+#ifndef USEMIKMOD
     Mix_PlayMusic(current_music->music, loops);
 #else
   {
@@ -124,7 +124,7 @@ MusicManager::halt_music()
   if(!audio_device)
     return;
   
-#ifndef GP2X
+#ifndef USEMIKMOD
   Mix_HaltMusic();
 #else
   Player_Stop();
@@ -149,13 +149,13 @@ MusicManager::enable_music(bool enable)
   
   music_enabled = enable;
   if(music_enabled == false) {
-#ifndef GP2X
+#ifndef USEMIKMOD
     Mix_HaltMusic();
 #else
     Player_Stop();
 #endif
   } else {
-#ifndef GP2X
+#ifndef USEMIKMOD
     Mix_PlayMusic(current_music->music, -1);
 #else
     Player_Start(current_music->music);

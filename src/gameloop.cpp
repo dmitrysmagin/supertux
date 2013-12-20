@@ -298,7 +298,6 @@ GameSession::process_events()
   
               switch(event.type)
                 {
-#ifndef GP2X
                 case SDL_QUIT:        /* Quit event - quit: */
                   st_abort("Received window close", "");
                   break;
@@ -462,7 +461,7 @@ GameSession::process_events()
                            
                   break;
 
-
+#ifndef GP2X
                 case SDL_JOYAXISMOTION:
                   if (event.jaxis.axis == joystick_keymap.x_axis)
                     {
@@ -518,10 +517,12 @@ GameSession::process_events()
                   else if (event.jbutton.button == joystick_keymap.left_button)
                     tux.input.left = DOWN;
 #ifndef NOSOUND
+#ifdef USEMIKMOD
  				  else if (event.jbutton.button == joystick_keymap.voldown_button)
 		    decreaseSoundVolume();
                   else if (event.jbutton.button == joystick_keymap.volup_button)
 		    increaseSoundVolume();
+#endif
 #endif
                   break;
 #endif
@@ -701,7 +702,7 @@ GameSession::draw()
 #endif
 
 #ifndef NOSOUND
-#ifdef GP2X
+#ifdef USEMIKMOD
   updateSound();
 #endif
 #endif
@@ -758,9 +759,6 @@ GameSession::run()
 
   while (exit_status == ES_NONE)
     {
-#ifdef GP2X
-      SDL_Delay(10);
-#endif
       /* Calculate the movement-factor */
       double frame_ratio = ((double)(update_time-last_update_time))/((double)FRAME_RATE);
 
@@ -851,7 +849,7 @@ GameSession::run()
             }
         }
 #ifndef NOSOUND
-#ifdef GP2X
+#ifdef USEMIKMOD
 	updateSound();
 #endif
 #endif
@@ -867,7 +865,7 @@ void bumpbrick(float x, float y)
                          (int)(y / (32)) * (32));
 
 #ifndef NOSOUND
-#ifndef GP2X
+#ifndef USEMIKMOD
   play_sound(sounds[SND_BRICK], SOUND_CENTER_SPEAKER);
 #else
   play_chunk(SND_BRICK);

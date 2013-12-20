@@ -758,7 +758,6 @@ Menu::event(SDL_Event& event)
   SDLKey key;
   switch(event.type)
   {
-#ifndef GP2X
   case SDL_KEYDOWN:
     key = event.key.keysym.sym;
     SDLMod keymod;
@@ -812,6 +811,7 @@ Menu::event(SDL_Event& event)
         mn_input_char = ' ';
         break;
       }
+    case SDLK_LCTRL: /* Menu Hit */
     case SDLK_RETURN: /* Menu Hit */
       menuaction = MENU_ACTION_HIT;
       break;
@@ -837,6 +837,7 @@ Menu::event(SDL_Event& event)
     }
     break;
     
+#ifndef GP2X
   case  SDL_JOYHATMOTION:
       if(event.jhat.value == SDL_HAT_UP)
            menuaction = MENU_ACTION_UP;
@@ -920,13 +921,13 @@ Menu::event(SDL_Event& event)
         menuaction = MENU_ACTION_LEFT;
 #ifndef NOSOUND
       else if (event.jbutton.button == joystick_keymap.volup_button)
-#ifdef GP2X
+#ifdef USEMIKMOD
 	increaseSoundVolume();
 #else
         sound_volume(2);
 #endif
       else if (event.jbutton.button == joystick_keymap.voldown_button)
-#ifdef GP2X
+#ifdef USEMIKMOD
 	decreaseSoundVolume();
 #else
         sound_volume(1);

@@ -322,7 +322,7 @@ Upgrade::bump(Player* )
     return;
 
 #ifndef NOSOUND
-#ifndef GP2X
+#ifndef USEMIKMOD
   play_sound(sounds[SND_BUMP_UPGRADE], SOUND_CENTER_SPEAKER);
 #else
     play_chunk(SND_BUMP_UPGRADE);
@@ -360,7 +360,7 @@ Upgrade::collision(void* p_c_object, int c_object, CollisionType type)
       if (kind == UPGRADE_GROWUP)
         {
 #ifndef NOSOUND
-#ifndef GP2X
+#ifndef USEMIKMOD
           play_sound(sounds[SND_EXCELLENT], SOUND_CENTER_SPEAKER);
 #else
 	    play_chunk(SND_EXCELLENT);
@@ -371,7 +371,7 @@ Upgrade::collision(void* p_c_object, int c_object, CollisionType type)
       else if (kind == UPGRADE_ICEFLOWER)
         {
 #ifndef NOSOUND
-#ifndef GP2X
+#ifndef USEMIKMOD
           play_sound(sounds[SND_COFFEE], SOUND_CENTER_SPEAKER);
 #else
 	  play_chunk(SND_COFFEE);
@@ -383,7 +383,7 @@ Upgrade::collision(void* p_c_object, int c_object, CollisionType type)
       else if (kind == UPGRADE_HERRING)
         {
 #ifndef NOSOUND
-#ifndef GP2X
+#ifndef USEMIKMOD
           play_sound(sounds[SND_HERRING], SOUND_CENTER_SPEAKER);
 #else
 	  play_chunk(SND_HERRING);
@@ -399,7 +399,7 @@ Upgrade::collision(void* p_c_object, int c_object, CollisionType type)
           if(player_status.lives < MAX_LIVES) {
             player_status.lives++;
 #ifndef NOSOUND
-#ifndef GP2X
+#ifndef USEMIKMOD
             play_sound(sounds[SND_LIFEUP], SOUND_CENTER_SPEAKER);
 #else
 	    play_chunk(SND_LIFEUP);

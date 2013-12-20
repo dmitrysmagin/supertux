@@ -863,7 +863,7 @@ WorldMap::update(float delta)
               level->y == tux->get_tile_pos().y)
 				{
 #ifndef NOSOUND
-#ifndef GP2X
+#ifndef USEMIKMOD
 					play_sound(sounds[SND_TELEPORT], SOUND_CENTER_SPEAKER);
 #else
 					play_chunk(SND_TELEPORT);
@@ -1114,7 +1114,7 @@ WorldMap::display()
       flipscreen();
 
 #ifndef NOSOUND
-#ifdef GP2X
+#ifdef USEMIKMOD
       updateSound();
 #endif
 #endif

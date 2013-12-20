@@ -43,11 +43,11 @@ PlayerKeymap keymap;
 
 PlayerKeymap::PlayerKeymap()
 {
-  keymap.jump  = SDLK_SPACE;
+  keymap.jump  = SDLK_LCTRL;
   keymap.duck  = SDLK_DOWN;
   keymap.left  = SDLK_LEFT;
   keymap.right = SDLK_RIGHT;
-  keymap.fire  = SDLK_LCTRL;
+  keymap.fire  = SDLK_LALT;
 }
 
 void player_input_init(player_input_type* pplayer_input)
@@ -262,7 +262,7 @@ Player::action(double frame_ratio)
         }
     }
 
-//(GP2X patch)	updateSound();
+//(USEMIKMOD patch)	updateSound();
 
   /* ---- DONE HANDLING TUX! --- */
 
@@ -340,7 +340,7 @@ Player::handle_horizontal_input()
       if(fabs(vx)>SKID_XM && !skidding_timer.check()) {
           skidding_timer.start(SKID_TIME);
 #ifndef NOSOUND
-#ifndef GP2X
+#ifndef USEMIKMOD
           play_sound(sounds[SND_SKID], SOUND_CENTER_SPEAKER);
 #else
 	  play_chunk(SND_SKID);
@@ -400,14 +400,14 @@ Player::handle_vertical_input()
           can_jump = false;
           if (size == SMALL) {
 #ifndef NOSOUND
-#ifndef GP2X
+#ifndef USEMIKMOD
             play_sound(sounds[SND_JUMP], SOUND_CENTER_SPEAKER);
 #else
 	    play_chunk(SND_JUMP);
 #endif
 		}
           else {
-#ifndef GP2X
+#ifndef USEMIKMOD
             play_sound(sounds[SND_BIGJUMP], SOUND_CENTER_SPEAKER);
 #else
 	    play_chunk(SND_BIGJUMP);
@@ -554,7 +554,7 @@ Player::grabdistros()
         ++player_status.lives;
       /*We want to hear the sound even, if MAX_LIVES is reached*/
 #ifndef NOSOUND
-#ifndef GP2X
+#ifndef USEMIKMOD
       play_sound(sounds[SND_LIFEUP], SOUND_CENTER_SPEAKER);
 #else
       play_chunk(SND_LIFEUP);
@@ -692,7 +692,7 @@ Player::collision(void* p_c_object, int c_object)
                 {
                    pbad_c->dying = DYING_FALLING;
 #ifndef NOSOUND
-#ifndef GP2X
+#ifndef USEMIKMOD
                    play_sound(sounds[SND_FALL], SOUND_CENTER_SPEAKER);
 #else
 		   play_chunk(SND_FALL);
@@ -729,7 +729,7 @@ void
 Player::kill(HurtMode mode)
 {
 #ifndef NOSOUND
-#ifndef GP2X
+#ifndef USEMIKMOD
   play_sound(sounds[SND_HURT], SOUND_CENTER_SPEAKER);
 #else
   play_chunk(SND_HURT);
@@ -811,7 +811,7 @@ Player::check_bounds(bool back_scrolling, bool hor_autoscroll)
     {
       kill(KILL);
 #ifndef NOSOUND
-#ifdef GP2X    
+#ifdef USEMIKMOD    
       float wait=SDL_GetTicks()+800;
       while ( wait > SDL_GetTicks()) {
          updateSound();

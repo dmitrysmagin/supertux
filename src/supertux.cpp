@@ -34,6 +34,7 @@
 #include "texture.h"
 #include "tile.h"
 
+#undef main
 int main(int argc, char * argv[])
 {
   st_directory_setup();

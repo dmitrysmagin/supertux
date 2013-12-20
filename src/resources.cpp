@@ -195,7 +195,7 @@ void loadshared()
                     Send a mail to me: neoneurone@users.sf.net, if you have another opinion. :)
   */
 #ifndef NOSOUND
-#ifndef GP2X
+#ifndef USEMIKMOD
   for (i = 0; i < NUM_SOUNDS; i++)
     sounds[i] = load_sound(datadir + soundfilenames[i]);
 #endif

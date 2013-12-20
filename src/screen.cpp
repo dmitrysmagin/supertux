@@ -364,7 +364,8 @@ void updatescreen(void)
   if(use_gl)  /*clearscreen(0,0,0);*/
     SDL_GL_SwapBuffers();
   else
-    SDL_UpdateRect(screen, 0, 0, screen->w, screen->h);
+    //SDL_UpdateRect(screen, 0, 0, screen->w, screen->h);
+    SDL_Flip(screen);
 }
 
 void flipscreen(void)

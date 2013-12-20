@@ -319,7 +319,7 @@ void st_directory_setup(void)
   char str[1024];
   /* Get home directory (from $HOME variable)... if we can't determine it,
      use the current directory ("."): */
-#ifndef GP2X
+#if defined(GP2X) && !defined(WIN32)
   if (getenv("HOME") != NULL)
     home = getenv("HOME");
   else
@@ -674,7 +674,11 @@ void st_general_setup(void)
 #endif
   red_text    = new Text(datadir + "/images/status/letters-red.png", TEXT_TEXT, 16,18);
   green_text  = new Text(datadir + "/images/status/letters-green.png", TEXT_TEXT, 16,18);
+#ifndef RES320X240
   white_text  = new Text(datadir + "/images/status/letters-white.png", TEXT_TEXT, 16,18);
+#else
+  white_text = new Text(datadir + "/images/status/letters-white-small.png", TEXT_TEXT, 8,9);
+#endif
   white_small_text = new Text(datadir + "/images/status/letters-white-small.png", TEXT_TEXT, 8,9);
   white_big_text   = new Text(datadir + "/images/status/letters-white-big.png", TEXT_TEXT, 20,22);
   yellow_nums = new Text(datadir + "/images/status/numbers.png", TEXT_NUM, 32,32);
@@ -771,9 +775,7 @@ void st_video_setup_sdl(void)
 #ifndef GP2X
       screen = SDL_SetVideoMode(SCREEN_W, SCREEN_H, 0, SDL_FULLSCREEN ) ; /* | SDL_HWSURFACE); */
 #else
-//      screen = SDL_SetVideoMode(SCREEN_W, SCREEN_H, 16, SDL_HWSURFACE | SDL_DOUBLEBUF ) ; /* GP2X */
-      printf("screen width: %d, height: %d\n",SCREEN_W, SCREEN_H);
-      screen = SDL_SetVideoMode(SCREEN_W, SCREEN_H, 16, SDL_SWSURFACE ) ; /* GP2X */
+      screen = SDL_SetVideoMode(SCREEN_W, SCREEN_H, 16, SDL_HWSURFACE |  SDL_DOUBLEBUF) ;
 #endif
       if (screen == NULL)
         {
@@ -788,11 +790,9 @@ void st_video_setup_sdl(void)
   else
     {
 #ifndef GP2X
-      screen = SDL_SetVideoMode(SCREEN_W, SCREEN_H, 0, SDL_HWSURFACE | SDL_DOUBLEBUF );
-
+      screen = SDL_SetVideoMode(SCREEN_W, SCREEN_H, 0, SDL_SWSURFACE );
 #else
-//      screen = SDL_SetVideoMode(SCREEN_W, SCREEN_H, 16, SDL_HWSURFACE | SDL_DOUBLEBUF ) ; /* GP2X */
-      screen = SDL_SetVideoMode(SCREEN_W, SCREEN_H, 16, SDL_SWSURFACE ) ; /* GP2X */
+      screen = SDL_SetVideoMode(SCREEN_W, SCREEN_H, 16, SDL_HWSURFACE |  SDL_DOUBLEBUF ) ;
 #endif
       if (screen == NULL)
         {
