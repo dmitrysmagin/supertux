@@ -1118,7 +1118,7 @@ WorldMap::display()
       updateSound();
 #endif
 #endif
-      SDL_Delay(20);
+      SDL_Delay(10);
     }
 }
 
